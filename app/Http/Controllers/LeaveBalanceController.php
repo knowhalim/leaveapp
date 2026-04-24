@@ -142,8 +142,11 @@ class LeaveBalanceController extends Controller
 
     public function processBulkAdjustment(Request $request)
     {
+        $isSet = $request->input('adjustment_type') === 'set';
         $validated = $request->validate([
-            'adjustment_value' => ['required', 'numeric', 'min:-10', 'max:10'],
+            'adjustment_value' => $isSet
+                ? ['required', 'numeric', 'min:0', 'max:365']
+                : ['required', 'numeric', 'min:-10', 'max:10'],
             'leave_type_id' => ['required', 'exists:leave_types,id'],
             'role' => ['nullable', 'string'],
             'position' => ['nullable', 'string'],

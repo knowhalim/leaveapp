@@ -149,17 +149,29 @@ export default function BulkAdjustment({ roles, positions, leaveTypes, departmen
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
                                             Value (days)
                                         </label>
-                                        <select
-                                            value={data.adjustment_value}
-                                            onChange={(e) => setData('adjustment_value', e.target.value)}
-                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                        >
-                                            {adjustmentOptions.map((val) => (
-                                                <option key={val} value={val}>
-                                                    {parseFloat(val) > 0 ? `+${val}` : val}
-                                                </option>
-                                            ))}
-                                        </select>
+                                        {data.adjustment_type === 'set' ? (
+                                            <input
+                                                type="number"
+                                                step="1"
+                                                min="0"
+                                                max="365"
+                                                value={data.adjustment_value}
+                                                onChange={(e) => setData('adjustment_value', e.target.value)}
+                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            />
+                                        ) : (
+                                            <select
+                                                value={data.adjustment_value}
+                                                onChange={(e) => setData('adjustment_value', e.target.value)}
+                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            >
+                                                {adjustmentOptions.map((val) => (
+                                                    <option key={val} value={val}>
+                                                        {parseFloat(val) > 0 ? `+${val}` : val}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 mt-4">
