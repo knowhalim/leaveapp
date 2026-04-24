@@ -23,7 +23,7 @@ export default function LeaveTypeEdit({ leaveType, employeeTypes }) {
             return {
                 employee_type_id: et.id,
                 employee_type_name: et.name,
-                days_allowed: existing?.days_allowed || leaveType.default_days,
+                days_allowed: existing?.days_allowed ?? leaveType.default_days,
             };
         }),
     });
