@@ -105,26 +105,21 @@ export default function LeaveTeamIndex({ leaveRequests, leaveTypes, filters }) {
                     </tbody>
                 </table>
 
-                {leaveRequests.links && leaveRequests.links.length > 3 && (
-                    <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                        <div className="flex-1 flex justify-between sm:hidden">
-                            {leaveRequests.prev_page_url && (
-                                <Link href={leaveRequests.prev_page_url} className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                    Previous
-                                </Link>
-                            )}
-                            {leaveRequests.next_page_url && (
-                                <Link href={leaveRequests.next_page_url} className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                    Next
-                                </Link>
-                            )}
+                {leaveRequests.last_page > 1 && (
+                    <div className="bg-white px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                        <div className="text-sm text-gray-700">
+                            Showing {leaveRequests.from} to {leaveRequests.to} of {leaveRequests.total} results
                         </div>
-                        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                            <p className="text-sm text-gray-700">
-                                Showing <span className="font-medium">{leaveRequests.from}</span> to{' '}
-                                <span className="font-medium">{leaveRequests.to}</span> of{' '}
-                                <span className="font-medium">{leaveRequests.total}</span> results
-                            </p>
+                        <div className="flex flex-wrap gap-1">
+                            {leaveRequests.links.map((link, i) => (
+                                <Link
+                                    key={i}
+                                    href={link.url || '#'}
+                                    preserveScroll
+                                    className={`px-3 py-1 text-sm rounded border ${link.active ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300'} ${!link.url ? 'opacity-40 pointer-events-none' : 'hover:bg-gray-50'}`}
+                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                />
+                            ))}
                         </div>
                     </div>
                 )}
