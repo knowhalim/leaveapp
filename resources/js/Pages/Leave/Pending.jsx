@@ -29,28 +29,28 @@ export default function LeavePending({ pendingRequests }) {
                     <ul className="divide-y divide-gray-200">
                         {pendingRequests.data.map((request) => (
                             <li key={request.id} className="p-4 hover:bg-gray-50">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex-1">
+                                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                    <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-3">
-                                            <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                            <div className="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0">
                                                 <span className="text-sm font-medium text-indigo-600">
                                                     {request.employee?.user?.name?.charAt(0)?.toUpperCase()}
                                                 </span>
                                             </div>
-                                            <div>
-                                                <p className="text-sm font-medium text-gray-900">
+                                            <div className="min-w-0">
+                                                <p className="text-sm font-medium text-gray-900 truncate">
                                                     {request.employee?.user?.name}
                                                 </p>
-                                                <p className="text-sm text-gray-500">
+                                                <p className="text-sm text-gray-500 truncate">
                                                     {request.employee?.position}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex-1 text-center">
-                                        <div className="flex items-center justify-center gap-2">
+                                    <div className="flex-1 sm:text-center">
+                                        <div className="flex items-center sm:justify-center gap-2 flex-wrap">
                                             <span
-                                                className="w-2 h-2 rounded-full"
+                                                className="w-2 h-2 rounded-full flex-shrink-0"
                                                 style={{ backgroundColor: request.leave_type?.color }}
                                             />
                                             <span className="text-sm text-gray-900">{request.leave_type?.name}</span>
@@ -60,7 +60,7 @@ export default function LeavePending({ pendingRequests }) {
                                         </div>
                                         <p className="text-sm text-gray-500">{request.total_days} day(s)</p>
                                     </div>
-                                    <div className="flex-1 text-center">
+                                    <div className="flex-1 sm:text-center">
                                         <p className="text-sm text-gray-900">
                                             {formatDate(request.start_date)}
                                         </p>
@@ -68,7 +68,7 @@ export default function LeavePending({ pendingRequests }) {
                                             to {formatDate(request.end_date)}
                                         </p>
                                     </div>
-                                    <div className="flex-1 text-center">
+                                    <div className="flex-1 sm:text-center">
                                         <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Approver</p>
                                         {(() => {
                                             const { name, extra } = approverLabel(request);
@@ -90,7 +90,7 @@ export default function LeavePending({ pendingRequests }) {
                                     <div className="flex-shrink-0">
                                         <Link
                                             href={`/leaves/${request.id}`}
-                                            className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                                            className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                                         >
                                             <Eye className="h-4 w-4" />
                                             Review
@@ -98,7 +98,7 @@ export default function LeavePending({ pendingRequests }) {
                                     </div>
                                 </div>
                                 {request.reason && (
-                                    <div className="mt-3 pl-13">
+                                    <div className="mt-3 sm:pl-13">
                                         <p className="text-sm text-gray-500 italic">"{request.reason}"</p>
                                     </div>
                                 )}

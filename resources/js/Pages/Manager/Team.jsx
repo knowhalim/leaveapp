@@ -34,7 +34,7 @@ export default function ManagerTeam({ upcomingLeave, leaveHistory, leaveBalances
             <Head title="My Team" />
 
             {/* Member filter */}
-            <div className="mb-4 flex items-center gap-3">
+            <div className="mb-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                 <label className="text-sm font-medium text-gray-700">Filter by member:</label>
                 <select
                     value={selectedMember}
@@ -50,7 +50,7 @@ export default function ManagerTeam({ upcomingLeave, leaveHistory, leaveBalances
 
             {/* Tabs */}
             <div className="border-b border-gray-200 mb-6">
-                <nav className="-mb-px flex space-x-6">
+                <nav className="-mb-px flex space-x-6 overflow-x-auto">
                     {tabs.map(tab => (
                         <button
                             key={tab.key}
@@ -70,7 +70,7 @@ export default function ManagerTeam({ upcomingLeave, leaveHistory, leaveBalances
 
             {/* Upcoming Leave */}
             {activeTab === 'upcoming' && (
-                <div className="bg-white shadow rounded-lg overflow-hidden">
+                <div className="bg-white shadow rounded-lg overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr>
@@ -109,7 +109,7 @@ export default function ManagerTeam({ upcomingLeave, leaveHistory, leaveBalances
 
             {/* Leave History */}
             {activeTab === 'history' && (
-                <div className="bg-white shadow rounded-lg overflow-hidden">
+                <div className="bg-white shadow rounded-lg overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                             <tr>

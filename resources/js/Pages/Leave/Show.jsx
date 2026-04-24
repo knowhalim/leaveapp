@@ -284,13 +284,13 @@ export default function LeaveShow({ leaveRequest, leaveTypes, leaveBalances, lea
                                         </p>
                                         <div className="space-y-2">
                                             {otherPendingLeave.map(l => (
-                                                <div key={l.id} className="flex items-center justify-between text-sm bg-amber-50 border border-amber-100 rounded-md px-3 py-2">
-                                                    <div className="flex items-center gap-2">
+                                                <div key={l.id} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-sm bg-amber-50 border border-amber-100 rounded-md px-3 py-2">
+                                                    <div className="flex items-center gap-2 flex-wrap">
                                                         <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: l.leave_type?.color }} />
                                                         <span className="font-medium">{l.leave_type?.name}</span>
                                                         <span className="text-gray-500">{formatDate(l.start_date)} – {formatDate(l.end_date)}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-2 flex-shrink-0">
                                                         <span className="text-gray-500">{l.total_days}d</span>
                                                         <Link href={`/leaves/${l.id}`} className="text-indigo-600 hover:text-indigo-800 text-xs">View</Link>
                                                     </div>
@@ -307,13 +307,13 @@ export default function LeaveShow({ leaveRequest, leaveTypes, leaveBalances, lea
                                         </p>
                                         <div className="space-y-2">
                                             {upcomingLeave.map(l => (
-                                                <div key={l.id} className="flex items-center justify-between text-sm bg-gray-50 border border-gray-100 rounded-md px-3 py-2">
-                                                    <div className="flex items-center gap-2">
+                                                <div key={l.id} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-sm bg-gray-50 border border-gray-100 rounded-md px-3 py-2">
+                                                    <div className="flex items-center gap-2 flex-wrap">
                                                         <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: l.leave_type?.color }} />
                                                         <span className="font-medium">{l.leave_type?.name}</span>
                                                         <span className="text-gray-500">{formatDate(l.start_date)} – {formatDate(l.end_date)}</span>
                                                     </div>
-                                                    <span className="text-gray-500 text-sm">{l.total_days}d</span>
+                                                    <span className="text-gray-500 text-sm flex-shrink-0">{l.total_days}d</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -333,18 +333,18 @@ export default function LeaveShow({ leaveRequest, leaveTypes, leaveBalances, lea
                                 </div>
                                 <div className="space-y-2">
                                     {teamOnLeave.map(l => (
-                                        <div key={l.id} className="flex items-center justify-between text-sm bg-gray-50 border border-gray-100 rounded-md px-3 py-2">
-                                            <div className="flex items-center gap-2">
+                                        <div key={l.id} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-sm bg-gray-50 border border-gray-100 rounded-md px-3 py-2">
+                                            <div className="flex items-center gap-2 flex-wrap">
                                                 <div className="h-6 w-6 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0">
                                                     <span className="text-xs font-medium text-indigo-700">
                                                         {l.employee?.user?.name?.charAt(0)?.toUpperCase()}
                                                     </span>
                                                 </div>
                                                 <span className="font-medium">{l.employee?.user?.name}</span>
-                                                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: l.leave_type?.color }} />
+                                                <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: l.leave_type?.color }} />
                                                 <span className="text-gray-500">{l.leave_type?.name}</span>
                                             </div>
-                                            <span className="text-gray-500">{formatDate(l.start_date)} – {formatDate(l.end_date)}</span>
+                                            <span className="text-gray-500 flex-shrink-0">{formatDate(l.start_date)} – {formatDate(l.end_date)}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -393,7 +393,7 @@ export default function LeaveShow({ leaveRequest, leaveTypes, leaveBalances, lea
                                 placeholder="Add a comment..."
                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                             />
-                            <div className="flex justify-between items-center">
+                            <div className="flex flex-wrap justify-between items-center gap-3">
                                 {isManager && (
                                     <label className="flex items-center gap-2 text-sm text-gray-600">
                                         <input

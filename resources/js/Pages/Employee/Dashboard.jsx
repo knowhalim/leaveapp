@@ -21,7 +21,7 @@ export default function EmployeeDashboard({ employee, leaveBalances, recentReque
 
             {/* Leave Balances */}
             <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
                     <h3 className="text-lg font-medium text-gray-900">Leave Balances ({financialYear})</h3>
                     <Link
                         href="/leaves/create"
