@@ -144,6 +144,25 @@ export default function DepartmentsIndex({ departments, filters }) {
                         )}
                     </tbody>
                 </table>
+
+                {departments.last_page > 1 && (
+                    <div className="bg-white px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                        <div className="text-sm text-gray-700">
+                            Showing {departments.from} to {departments.to} of {departments.total} results
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                            {departments.links.map((link, i) => (
+                                <Link
+                                    key={i}
+                                    href={link.url || '#'}
+                                    preserveScroll
+                                    className={`px-3 py-1 text-sm rounded border ${link.active ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300'} ${!link.url ? 'opacity-40 pointer-events-none' : 'hover:bg-gray-50'}`}
+                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
         </AuthenticatedLayout>
     );
