@@ -37,7 +37,7 @@ export default function SettingsIndex({ settings, apiTokens = [] }) {
         company_name: settings.company_name || '',
         financial_year: settings.financial_year || new Date().getFullYear().toString(),
         weekends: settings.weekends || ['saturday', 'sunday'],
-        max_carry_forward: settings.max_carry_forward || 5,
+        max_carry_forward: settings.max_carry_forward ?? 5,
         leave_year_start_month: settings.leave_year_start_month || 1,
         role_label_employee: settings.role_label_employee || 'Employee',
         role_label_manager: settings.role_label_manager || 'Manager',
