@@ -44,6 +44,8 @@ export default function SettingsIndex({ settings, apiTokens = [] }) {
         role_label_admin: settings.role_label_admin || 'Admin',
         role_label_super_admin: settings.role_label_super_admin || 'Super Admin',
         password_login_enabled: settings.password_login_enabled ?? true,
+        pending_reminder_days: settings.pending_reminder_days ?? 3,
+        pending_escalation_days: settings.pending_escalation_days ?? 4,
     });
 
     const weekdays = [
@@ -275,6 +277,55 @@ export default function SettingsIndex({ settings, apiTokens = [] }) {
                                     {errors[key] && <p className="mt-1 text-sm text-red-600">{errors[key]}</p>}
                                 </div>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* Pending Leave Reminders */}
+                    <div className="p-6">
+                        <h3 className="text-lg font-medium text-gray-900 mb-1 flex items-center gap-2">
+                            <Clock className="h-4 w-4 text-gray-500" />
+                            Pending Leave Reminders
+                        </h3>
+                        <p className="text-sm text-gray-500 mb-4">
+                            Controls when reminder emails are sent for leave requests still awaiting approval. The supervisor is reminded once after the reminder threshold; if still unresolved, the admin is notified once after the escalation threshold (and the supervisor is no longer pinged).
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label htmlFor="pending_reminder_days" className="block text-sm font-medium text-gray-700">
+                                    Remind supervisor after (days)
+                                </label>
+                                <input
+                                    type="number"
+                                    id="pending_reminder_days"
+                                    min="0"
+                                    max="60"
+                                    value={data.pending_reminder_days}
+                                    onChange={(e) => setData('pending_reminder_days', parseInt(e.target.value))}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                                <p className="mt-1 text-xs text-gray-500">Days a request can sit pending before the supervisor gets a reminder email.</p>
+                                {errors.pending_reminder_days && (
+                                    <p className="mt-1 text-sm text-red-600">{errors.pending_reminder_days}</p>
+                                )}
+                            </div>
+                            <div>
+                                <label htmlFor="pending_escalation_days" className="block text-sm font-medium text-gray-700">
+                                    Escalate to admin after (days)
+                                </label>
+                                <input
+                                    type="number"
+                                    id="pending_escalation_days"
+                                    min="0"
+                                    max="60"
+                                    value={data.pending_escalation_days}
+                                    onChange={(e) => setData('pending_escalation_days', parseInt(e.target.value))}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                />
+                                <p className="mt-1 text-xs text-gray-500">Must be ≥ supervisor reminder. After this point, only admins are notified — supervisor stops getting pinged.</p>
+                                {errors.pending_escalation_days && (
+                                    <p className="mt-1 text-sm text-red-600">{errors.pending_escalation_days}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
 

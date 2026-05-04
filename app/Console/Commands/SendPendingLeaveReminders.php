@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\LeaveRequest;
+use App\Models\SystemSetting;
 use App\Models\User;
 use App\Services\EmailService;
 use Illuminate\Console\Command;
@@ -10,14 +11,17 @@ use Illuminate\Console\Command;
 class SendPendingLeaveReminders extends Command
 {
     protected $signature = 'app:send-pending-leave-reminders';
-    protected $description = 'Remind supervisors of pending leave (day 3), escalate to admins (day 4)';
+    protected $description = 'Remind supervisors of pending leave, then escalate to admins after configured day thresholds';
 
     public function handle(EmailService $emailService): void
     {
-        // Day 3+: remind supervisors if not yet reminded
+        $reminderDays = (int) SystemSetting::get('pending_reminder_days', 3);
+        $escalationDays = (int) SystemSetting::get('pending_escalation_days', 4);
+
+        // Reminder day+: remind supervisors if not yet reminded
         $toRemind = LeaveRequest::with(['employee.user', 'employee.supervisors.user', 'employee.department.manager', 'leaveType'])
             ->pending()
-            ->where('created_at', '<=', now()->subDays(3))
+            ->where('created_at', '<=', now()->subDays($reminderDays))
             ->whereNull('reminder_sent_at')
             ->get();
 
@@ -27,10 +31,10 @@ class SendPendingLeaveReminders extends Command
             $this->info("Reminder sent for leave #{$leave->id} ({$leave->employee->user->name})");
         }
 
-        // Day 4+: escalate to admins if reminder was sent but still pending
+        // Escalation day+: escalate to admins if reminder was sent but still pending
         $toEscalate = LeaveRequest::with(['employee.user', 'leaveType'])
             ->pending()
-            ->where('created_at', '<=', now()->subDays(4))
+            ->where('created_at', '<=', now()->subDays($escalationDays))
             ->whereNotNull('reminder_sent_at')
             ->whereNull('admin_notified_at')
             ->get();

@@ -44,7 +44,9 @@
             </tr>
         </table>
 
-        <p>Please log in to the system to review and take action on this leave request.</p>
+        <div style="margin: 25px 0; text-align: center;">
+            <a href="{{ url('/leaves/' . $leaveRequest->id) }}" style="background-color: #dc2626; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Review Request</a>
+        </div>
         <p style="color: #6b7280; font-size: 14px;">This is an automated message from {{ \App\Models\SystemSetting::getCompanyName() }}.</p>
     </div>
 </body>

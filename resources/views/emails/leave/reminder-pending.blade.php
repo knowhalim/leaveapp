@@ -36,7 +36,9 @@
             </tr>
         </table>
 
-        <p>Please log in to the system to approve or reject this request.</p>
+        <div style="margin: 25px 0; text-align: center;">
+            <a href="{{ url('/leaves/' . $leaveRequest->id) }}" style="background-color: #d97706; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Review Request</a>
+        </div>
         <p style="color: #6b7280; font-size: 13px;">If no action is taken, an escalation notice will be sent to the administrator.</p>
         <p style="color: #6b7280; font-size: 14px;">This is an automated message from {{ \App\Models\SystemSetting::getCompanyName() }}.</p>
     </div>

@@ -25,6 +25,8 @@ class SettingsController extends Controller
             'role_label_admin' => SystemSetting::get('role_label_admin', 'Admin'),
             'role_label_super_admin' => SystemSetting::get('role_label_super_admin', 'Super Admin'),
             'password_login_enabled' => (bool) SystemSetting::get('password_login_enabled', true),
+            'pending_reminder_days' => (int) SystemSetting::get('pending_reminder_days', 3),
+            'pending_escalation_days' => (int) SystemSetting::get('pending_escalation_days', 4),
         ];
 
         $apiTokens = [];
@@ -55,6 +57,8 @@ class SettingsController extends Controller
             'role_label_admin' => ['required', 'string', 'max:50'],
             'role_label_super_admin' => ['required', 'string', 'max:50'],
             'password_login_enabled' => ['sometimes', 'boolean'],
+            'pending_reminder_days' => ['required', 'integer', 'min:0', 'max:60'],
+            'pending_escalation_days' => ['required', 'integer', 'min:0', 'max:60', 'gte:pending_reminder_days'],
         ]);
 
         foreach ($validated as $key => $value) {
